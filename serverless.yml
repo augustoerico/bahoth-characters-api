@@ -1,0 +1,30 @@
+service: ${file(package.json):name}
+version: ${file(package.json):version}
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+package:
+  exclude:
+    - .gitignore
+
+functions:
+
+  list:
+    handler: handlers/list.handler
+    events:
+      - http:
+          path: /bahoth/characters
+          method: get
+
+  get:
+    handler: handlers/get.handler
+    events:
+      - http:
+          path: /bahoth/characters/{id}
+          method: get
