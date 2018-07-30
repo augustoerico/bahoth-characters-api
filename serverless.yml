@@ -4,6 +4,9 @@ version: ${file(package.json):version}
 provider:
   name: aws
   runtime: nodejs8.10
+  apiGateway:
+    restApiId: eqzw721z07
+    restApiRootResourceId: jlqfdlght5
 
 # you can overwrite defaults here
 #  stage: dev
@@ -19,12 +22,12 @@ functions:
     handler: handlers/list.handler
     events:
       - http:
-          path: /bahoth/characters
+          path: /characters
           method: get
 
   get:
     handler: handlers/get.handler
     events:
       - http:
-          path: /bahoth/characters/{id}
+          path: /characters/{id}
           method: get
