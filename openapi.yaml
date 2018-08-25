@@ -31,6 +31,12 @@ paths:
             description: Create character
             operationId: CharacterCreate
             summary: Create
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CharacterCreate"
             responses:
                 '201':
                     description: Success
@@ -127,6 +133,8 @@ components:
                     type: array
                     items:
                         $ref: "#/components/schemas/CharacterGet"
+        CharacterCreate:
+            $ref: "https://raw.githubusercontent.com/augustoerico/bahoth-characters-api/master/schemas/character-create.json"
         4XX:
             required:
                 - errors
