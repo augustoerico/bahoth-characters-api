@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "redoc-cli": "^0.6.2",
     "serverless": "^1.29.1"
   }
 }

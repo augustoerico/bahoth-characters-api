@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+    title: "Characters API Specification"
+    version: "0.1.0"
+
+servers:
+    - url: https://6p6te2lr5k.execute-api.us-east-1.amazonaws.com/dev/bahoth
+      description: Dev
+
+paths:
+
+    /characters:
+        get:
+            description: List characters
+            operationId: CharacterList
+            summary: List
+            responses:
+                '200':
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CharacterList"
+                4XX:
+                    description: Client error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/4XX"
+        post:
+            description: Create character
+            operationId: CharacterCreate
+            summary: Create
+            responses:
+                '201':
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CharacterGet"
+                4XX:
+                    description: Client error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/4XX"
+
+    /characters/{id}:
+        parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                  type: string
+        get:
+            operationId: CharacterGet
+            summary: Get
+            responses:
+                '200':
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CharacterGet"
+                '404':
+                    description: Not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/404"
+                4XX:
+                    description: Client error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/4XX"
+        patch:
+            operationId: CharacterUpdate
+            summary: Update
+            responses:
+                '200':
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CharacterGet"
+                '404':
+                    description: Not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/404"
+                4XX:
+                    description: Client error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/4XX"
+        delete:
+            operationId: CharacterDelete
+            summary: Delete
+            responses:
+                '204':
+                    description: Success
+                '404':
+                    description: Not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/404"
+                4XX:
+                    description: Client error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/4XX"
+
+components:
+    schemas:
+        CharacterGet:
+            $ref: "https://raw.githubusercontent.com/augustoerico/bahoth-characters-api/master/schemas/character-get.json"
+        CharacterList:
+            required:
+                - data
+            properties:
+                data:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CharacterGet"
+        4XX:
+            required:
+                - errors
+            properties:
+                errors:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            message:
+                                type: string
+        404:
+            $ref: '#/components/schemas/4XX'
